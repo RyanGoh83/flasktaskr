@@ -15,7 +15,7 @@ def login_required(test):
 	@wraps(test)
 	def wrap(*args, **kwargs):
 		if 'logged_in' in session:
-			return(*args, **kwargs)
+			return test(*args, **kwargs)
 		else:
 			flash('You need to log in first!')
 			return redirect(url_for('login'))
