@@ -1,5 +1,6 @@
 import sqlite3
 from functools import wraps
+from forms import AddTaskForm
 from flask import Flask, flash,	redirect, render_template, \
 	request, session, url_for, g
 
@@ -49,14 +50,14 @@ def tasks():
 		'select name, due_date, priority, task_id from tasks where status=1'
 	)
 	open_tasks = [
-		dict(name=row[0], due_date=row[1]), priority=row[2],
+		dict(name=row[0], due_date=row[1], priority=row[2],
 			task_id=row[3]) for row in cursor.fetchall()
 	]
 	cursor = g.db.execute(
 		'select name, due_date, priority, task_id from tasks where status=0'
 	)
 	closed_tasks = [
-		dict(name=row[0], due_date=row[1]), priority=row[2],
+		dict(name=row[0], due_date=row[1], priority=row[2],
 			task_id=row[3]) for row in cursor.fetchall()
 	]
 	g.db.close()
@@ -81,8 +82,8 @@ def new_task():
 	else:
 		g.db.execute('insert into tasks (name, due_date, priority, status)\
 			values(?, ?, ?, 1)', [
-				request.form['name']
-				request.form['due_date']
+				request.form['name'],
+				request.form['due_date'],
 				request.form['priority']
 			]
 		)
