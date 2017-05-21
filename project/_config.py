@@ -12,8 +12,11 @@ The SECRET_KEY config setting is used in conjunction with the
 WTF_CSRF_ENABLED setting in	order to create	a cryptographic	token 
 that is	used to	validate a form. It's also used	for	the	same reason	in 
 conjunction	with sessions"""
-WTF_CSRF_ENABLED = True
+CSRF_ENABLED = True
 SECRET_KEY = "can'tguessthis"
 
 #define the full path for the databae
 DATABASE_PATH = os.path.join(basedir, DATABASE)
+
+# database URI
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DATABASE_PATH
